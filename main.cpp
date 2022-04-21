@@ -6,7 +6,7 @@ namespace fs = std::filesystem;
 using namespace std;
 
 // too lazy to comment this, just read and learn by yourself.
-std::string getKeyword(){
+std::string getKeyword() {
     string line;
     string keyword;
     ifstream myfile ("keyword.txt");
@@ -37,8 +37,7 @@ string readFileIntoString(const string& path) {
 }
 
 // too lazy to comment this too
-bool is_file_empty(std::ifstream& pFile)
-{
+bool is_file_empty(std::ifstream& pFile) {
     return pFile.peek() == std::ifstream::traits_type::eof();
 }
 
