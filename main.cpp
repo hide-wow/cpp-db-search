@@ -41,25 +41,13 @@ bool is_file_empty(std::ifstream& pFile) {
     return pFile.peek() == std::ifstream::traits_type::eof();
 }
 
-// here too
-void writeFile(const string& name, const string& content, bool append = false) {
-    ofstream outfile;
-    if (append)
-    {
-        outfile.open(name, ios_base::app);
-    }
-    else
-    {
-        outfile.open(name);
-    }
-    outfile << content << endl;
-}
-
 int main() {
     fs::path path = fs::current_path(); // /!\ don't work on cmd
     string dbPath = path.u8string() + "\\db\\"; // setup the db path
     string line; // setup the line var
     string keyword = getKeyword(); // setup the keyword
+    ofstream outfile;
+    outfile.open("output.txt", ios_base::app);
 
     // for each file in the db directory
     for (const auto & entry : fs::directory_iterator(dbPath))
@@ -71,7 +59,8 @@ int main() {
             {
                 if (line.find(keyword) != string::npos) // if you find the keyword
                 {
-                    writeFile("output.txt", line, true); // write the line to the output file
+                    // write the line to the output file
+                    outfile << line << endl;
                 }
             }
 
@@ -83,5 +72,6 @@ int main() {
             cout << "Unable to open the db file"; 
         }
     }
+    outfile.close();
     return 0;
 }
