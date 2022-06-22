@@ -32,6 +32,11 @@ bool is_file_empty(std::ifstream& pFile) {
     return pFile.peek() == std::ifstream::traits_type::eof();
 }
 
+string getFileName(string const& path)
+{
+    return path.substr(path.find_last_of("/\\") + 1);
+}
+
 int main() {
     HWND hWnd = GetConsoleWindow();
     ShowWindow(hWnd,SW_SHOWMAXIMIZED);  
@@ -59,7 +64,7 @@ int main() {
                 {
                     // write the line to the output file and show in the tui
                     something = true;
-                    cout << "[" << i << "] - " << line << endl;
+                    cout << "[" << i << "] - [" << getFileName(entry.path()) << "]\n" << line << endl;
                     cout << separation << endl;
                     i++;
                 }
@@ -80,6 +85,7 @@ int main() {
     if (something == false)
     {
         cout << "No result found" << endl;
+        cout << separation << endl;
         wait();
     }
     else 
